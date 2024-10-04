@@ -1,5 +1,7 @@
 ﻿module FSharpWithEF.Sandbox
 
+open System.Collections.Generic
+open System.Collections.ObjectModel
 open FSharpWithEF.Models
 
 let run (db: AppDbContext) =
@@ -32,7 +34,7 @@ let run (db: AppDbContext) =
               Content = "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
               Author = user
               Meta = Meta.now ()
-              Comments = [||] }
+              Comments = ReadOnlyCollection.Empty }
 
         db.Users.addRange [ user; user2 ]
         db.Blogs.add blog

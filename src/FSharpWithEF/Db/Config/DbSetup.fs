@@ -28,6 +28,7 @@ let configureService (builder: IHostApplicationBuilder) (name: string) (options:
         let connString = builder.Configuration.GetConnectionString name
 
         options
+            .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
             .EnableSensitiveDataLogging(builder.Environment.IsDevelopment())
             .UseNpgsql(
                 connString,

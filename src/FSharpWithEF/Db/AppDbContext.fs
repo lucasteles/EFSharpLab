@@ -62,6 +62,7 @@ type AppDbContext(options: DbContextOptions<AppDbContext>) =
             )
 
             let comment = builder.Entity<Comment>()
+            comment.ToTable "Comment"
             comment.hasKey (fun x -> x.Id)
             comment.Property(fun x -> x.Text).HasMaxLength(120)
             comment.Navigation(fun x -> x.Author).AutoInclude()

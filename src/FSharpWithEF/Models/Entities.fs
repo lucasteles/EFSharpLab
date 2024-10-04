@@ -32,5 +32,5 @@ type Post =
       Content: string
       Author: User
       BlogId: BlogId
-      Comments: Comment[]
+      Comments: IReadOnlyCollection<Comment>
       Meta: Meta }
