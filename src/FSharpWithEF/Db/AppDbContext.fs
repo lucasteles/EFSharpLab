@@ -1,6 +1,5 @@
 ﻿namespace FSharpWithEF
 
-open System.Collections
 open FSharpWithEF.Db.Config
 open FSharpWithEF.Db.Config.Converters
 open FSharpWithEF.Models
@@ -12,6 +11,7 @@ type AppDbContext(options: DbContextOptions<AppDbContext>) =
     member this.Users = this.Set<User>()
     member this.Blogs = this.Set<Blog>()
     member this.Posts = this.Set<Post>()
+    member this.Comments = this.Set<Comment>()
 
     override this.ConfigureConventions builder =
         proc {
