@@ -15,7 +15,7 @@ let applyMigrations (db: DbContext) =
         AssemblyLoadContext.Default.add_Resolving (fun ctx asmName ->
             if asmName.Name = migrationsAssembly then
                 let path = Assembly.GetExecutingAssembly().Location |> Path.GetDirectoryName
-                let file = Path.ChangeExtension(Path.Combine(path, migrationsAssembly), "dll")
+                let file = Path.Combine(path, migrationsAssembly + ".dll")
                 ctx.LoadFromAssemblyPath file
             else
                 null)

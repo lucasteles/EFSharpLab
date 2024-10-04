@@ -21,3 +21,10 @@ type Meta =
     { CreatedAt: DateTime
       UpdatedAt: DateTime
       State: EntityState }
+
+
+module Meta =
+    let now () =
+        { CreatedAt = DateTime.UtcNow
+          UpdatedAt = DateTime.UtcNow
+          State = EntityState.Active }

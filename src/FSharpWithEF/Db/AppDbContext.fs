@@ -8,6 +8,9 @@ open Microsoft.EntityFrameworkCore
 type AppDbContext(options: DbContextOptions<AppDbContext>) =
     inherit DbContext(options)
 
+    member this.Users = this.Set<User>()
+    member this.Blogs = this.Set<Blog>()
+
     override this.ConfigureConventions builder =
         proc {
             builder.UseDatetimeUtc()
@@ -22,6 +25,7 @@ type AppDbContext(options: DbContextOptions<AppDbContext>) =
 
         proc {
             let user = builder.Entity<User>()
+            user.ToTable "User"
             user.hasKey (fun x -> x.Id)
             user.Property(fun x -> x.FirstName).HasMaxLength(50)
             user.Property(fun x -> x.LastName).HasMaxLength(100).IsOptional()

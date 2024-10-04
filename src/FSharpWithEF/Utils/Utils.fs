@@ -13,11 +13,15 @@ type ProcBuilder() =
 let proc = ProcBuilder()
 
 type IsClass<'entity when 'entity: not struct> = 'entity
+
+type Task = System.Threading.Tasks.Task
+type Task<'t> = System.Threading.Tasks.Task<'t>
+
 let (|?) a b = a |> Option.defaultValue b
 
-module EntityId =
-    let next () = NewId.NextGuid()
-
+module Id =
+    let nextGuid () = NewId.NextGuid()
+    let next<'t> (ctor: _ -> 't) = nextGuid () |> ctor
 
 module Json =
     open System.Text.Json.Serialization

@@ -1,4 +1,5 @@
 open System
+open System.Threading.Tasks
 open FSharpWithEF
 open Microsoft.AspNetCore.Builder
 open FSharpWithEF.Db
@@ -30,8 +31,11 @@ let start (app: WebApplication) =
         use scope = app.Services.CreateScope()
         let services = scope.ServiceProvider
         let db = services.GetRequiredService<AppDbContext>()
+
+        do! db.Database.EnsureDeletedAsync() :> Task
         do! DbSetup.applyMigrations db
 
+        do! Sandbox.run db
         return! app.RunAsync()
     }
 

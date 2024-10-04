@@ -20,11 +20,11 @@ type EntityStateConverter() =
         ValueConverter<EntityState, char>(
             (fun x ->
                 match x with
-                | EntityState.Active -> '0'
-                | EntityState.Inactive -> '1'),
+                | EntityState.Active -> '1'
+                | EntityState.Inactive -> '0'),
             (fun x ->
                 match x with
-                | '0' -> EntityState.Active
-                | '1' -> EntityState.Inactive
+                | '1' -> EntityState.Active
+                | '0' -> EntityState.Inactive
                 | _ -> Unchecked.defaultof<_>)
         )

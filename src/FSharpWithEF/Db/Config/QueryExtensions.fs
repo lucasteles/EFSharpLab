@@ -6,6 +6,7 @@ open System.Linq
 open System.Linq.Expressions
 open System.Runtime.CompilerServices
 open System.Threading
+open System.Threading.Tasks
 open Microsoft.EntityFrameworkCore
 
 type private Pred<'t> = Func<'t, bool>
@@ -75,31 +76,30 @@ module Query =
                 return Option.ofNullable ret
             }
 
-[<Extension>]
 type IQueryableExtensions =
     [<Extension>]
-    static member FirstOrNone(this: IQueryable<Nullable<'t>>, ?predicate: PredExp<Nullable<'t>>) =
+    static member TryFirst(this: IQueryable<Nullable<'t>>, ?predicate: PredExp<Nullable<'t>>) =
         match predicate with
         | Some f -> this.FirstOrDefault(predicate = f)
         | None -> this.FirstOrDefault()
         |> Option.ofNullable
 
     [<Extension>]
-    static member FirstOrNone<'t when 't IsClass>(this: IQueryable<'t>, ?predicate: PredExp<'t>) =
+    static member TryFirst<'t when 't IsClass>(this: IQueryable<'t>, ?predicate: PredExp<'t>) =
         match predicate with
         | Some f -> this.FirstOrDefault(predicate = f)
         | None -> this.FirstOrDefault()
         |> Option.ofRef
 
     [<Extension>]
-    static member SingleOrNone(this: IQueryable<Nullable<'t>>, ?predicate: PredExp<Nullable<'t>>) =
+    static member TrySingle(this: IQueryable<Nullable<'t>>, ?predicate: PredExp<Nullable<'t>>) =
         match predicate with
         | Some f -> this.SingleOrDefault(predicate = f)
         | None -> this.SingleOrDefault()
         |> Option.ofNullable
 
     [<Extension>]
-    static member SingleOrNone(this: IQueryable<'t>, ?predicate: PredExp<'t> when 't IsClass) =
+    static member TrySingle(this: IQueryable<'t>, ?predicate: PredExp<'t> when 't IsClass) =
         match predicate with
         | Some f -> this.SingleOrDefault(predicate = f)
         | None -> this.SingleOrDefault()
@@ -113,35 +113,35 @@ type IQueryableExtensions =
     static member ToListAsync(this: IQueryable<'t>, ct) = Query.toListAsync ct this
 
     [<Extension>]
-    static member FirstOrNoneAsync(this: IQueryable<'t> when 't IsClass, ?ct) =
+    static member TryFirstAsync(this: IQueryable<'t> when 't IsClass, ?ct) =
         Query.tryFirstAsync (ct |? CancellationToken.None) this
 
     [<Extension>]
-    static member FirstOrNoneAsync(this: IQueryable<Nullable<'t>>, ?ct) =
+    static member TryFirstAsync(this: IQueryable<Nullable<'t>>, ?ct) =
         Query.tryFirstValueAsync (ct |? CancellationToken.None) this
 
     [<Extension>]
-    static member FirstOrNoneAsync(this: IQueryable<'t>, predicate: PredExp<'t> when 't IsClass, ?ct) =
+    static member TryFirstAsync(this: IQueryable<'t>, predicate: PredExp<'t> when 't IsClass, ?ct) =
         this |> Query.tryFilterFirstAsync (ct |? CancellationToken.None) predicate
 
     [<Extension>]
-    static member FirstOrNoneAsync(this: IQueryable<Nullable<'t>>, predicate: PredExp<Nullable<'t>>, ?ct) =
+    static member TryFirstAsync(this: IQueryable<Nullable<'t>>, predicate: PredExp<Nullable<'t>>, ?ct) =
         this |> Query.tryFilterFirstValueAsync (ct |? CancellationToken.None) predicate
 
     [<Extension>]
-    static member SingleOrNoneAsync(this: IQueryable<'t> when 't IsClass, ?ct) =
+    static member TrySingleAsync(this: IQueryable<'t> when 't IsClass, ?ct) =
         Query.trySingleAsync (ct |? CancellationToken.None) this
 
     [<Extension>]
-    static member SingleOrNoneAsync(this: IQueryable<Nullable<'t>>, ?ct) =
+    static member TrySingleAsync(this: IQueryable<Nullable<'t>>, ?ct) =
         Query.trySingleValueAsync (ct |? CancellationToken.None) this
 
     [<Extension>]
-    static member SingleOrNoneAsync(this: IQueryable<'t>, predicate: PredExp<'t> when 't IsClass, ?ct) =
+    static member TrySingleAsync(this: IQueryable<'t>, predicate: PredExp<'t> when 't IsClass, ?ct) =
         this |> Query.tryFilterSingleAsync (ct |? CancellationToken.None) predicate
 
     [<Extension>]
-    static member SingleOrNoneAsync(this: IQueryable<Nullable<'t>>, predicate: PredExp<Nullable<'t>>, ?ct) =
+    static member TrySingleAsync(this: IQueryable<Nullable<'t>>, predicate: PredExp<Nullable<'t>>, ?ct) =
         this |> Query.tryFilterSingleValueAsync (ct |? CancellationToken.None) predicate
 
 
@@ -160,3 +160,7 @@ type DbSet<'t when 't IsClass> with
             let! v = this.FindAsync(k)
             return v |> Option.ofRef
         }
+
+type DbContext with
+
+    member this.saveChangesAsync() = this.SaveChangesAsync() :> Task

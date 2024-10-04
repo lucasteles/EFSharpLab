@@ -56,6 +56,7 @@
     <Compile Include="Db\Config\DbSetup.fs" />
     <Compile Include="Db\AppDbContext.fs" />
     <Compile Include="Routes.fs" />
+    <Compile Include="Sandbox.fs" />
     <Compile Include="Program.fs"/>
   </ItemGroup>
 </Project>
