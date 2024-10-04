@@ -5,20 +5,16 @@ open FSharpWithEF.Db
 open Microsoft.Extensions.DependencyInjection
 
 let configure (builder: WebApplicationBuilder) =
-    proc {
-        let services = builder.Services
+    let services = builder.Services
 
-        services
-            .AddSingleton(TimeProvider.System)
-            .AddSingleton(Random.Shared)
-            .AddSingleton(Json.jsonFsharpOptions)
-
-        services
-            .AddDbContext<AppDbContext>(DbSetup.configureService builder "DefaultConnection")
-            .Configure(fun (options: Microsoft.AspNetCore.Mvc.JsonOptions) ->
-                Json.configure options.JsonSerializerOptions)
-            .ConfigureHttpJsonOptions(fun options -> Json.configure options.SerializerOptions)
-    }
+    services
+        .AddSingleton(TimeProvider.System)
+        .AddSingleton(Random.Shared)
+        .AddSingleton(Json.jsonFsharpOptions)
+        .AddDbContext<AppDbContext>(DbSetup.configureService builder "DefaultConnection")
+        .Configure(fun (options: Microsoft.AspNetCore.Mvc.JsonOptions) -> Json.configure options.JsonSerializerOptions)
+        .ConfigureHttpJsonOptions(fun options -> Json.configure options.SerializerOptions)
+    |> ignore
 
 let createWebServer (args: string[]) =
     let builder = WebApplication.CreateBuilder(args)
@@ -29,8 +25,17 @@ let createWebServer (args: string[]) =
 
     app
 
+let start (app: WebApplication) =
+    task {
+        use scope = app.Services.CreateScope()
+        let services = scope.ServiceProvider
+        let db = services.GetRequiredService<AppDbContext>()
+        do! DbSetup.applyMigrations db
+
+        return! app.RunAsync()
+    }
+
 [<EntryPoint>]
 let main args =
-    let app = createWebServer args
-    app.RunAsync().GetAwaiter().GetResult()
+    start(createWebServer args).GetAwaiter().GetResult()
     0
