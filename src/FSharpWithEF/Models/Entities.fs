@@ -22,6 +22,7 @@ type Comment =
     { Id: CommentId
       Text: string
       Author: User
+      PostId: PostId
       Meta: Meta }
 
 [<CLIMutable>]
@@ -31,5 +32,5 @@ type Post =
       Content: string
       Author: User
       BlogId: BlogId
-      Comments: HashSet<Comment>
+      Comments: Comment[]
       Meta: Meta }

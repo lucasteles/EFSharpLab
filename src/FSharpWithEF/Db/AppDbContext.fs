@@ -1,5 +1,6 @@
 ﻿namespace FSharpWithEF
 
+open System.Collections
 open FSharpWithEF.Db.Config
 open FSharpWithEF.Db.Config.Converters
 open FSharpWithEF.Models
@@ -63,6 +64,12 @@ type AppDbContext(options: DbContextOptions<AppDbContext>) =
             let comment = builder.Entity<Comment>()
             comment.hasKey (fun x -> x.Id)
             comment.Property(fun x -> x.Text).HasMaxLength(120)
+
+            comment
+                .HasOne<Post>()
+                .WithMany(fun x -> x.Comments :> _ seq)
+                .hasForeignKey (fun x -> x.PostId)
+
             comment.Navigation(fun x -> x.Author).AutoInclude()
 
             comment.complexProperty (
