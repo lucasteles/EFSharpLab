@@ -1,0 +1,10 @@
+<Project>
+  <PropertyGroup>
+    <DebugType>portable</DebugType>
+    <PublishRelease>true</PublishRelease>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CS1591;CS1573;FS3570</NoWarn>
+  </PropertyGroup>
+</Project>

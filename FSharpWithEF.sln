@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{075AE8CF-9890-450B-A65C-32FCC6BE1DF6}"
+	ProjectSection(SolutionItems) = preProject
+		_build\build.fsx = _build\build.fsx
+		_build\helpers.fsx = _build\helpers.fsx
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{F0408C09-C745-4A83-99EF-39BE3FD3E186}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+		.config\dotnet-tools.json = .config\dotnet-tools.json
+		.editorconfig = .editorconfig
+		Directory.Build.props = Directory.Build.props
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B3D20069-2D4D-444C-ACA9-E1CA234D5E87}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpWithEF", "src\FSharpWithEF\FSharpWithEF.fsproj", "{5B833956-9C3C-4630-82C1-D0C57149265C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FSharpWithEF.Migrations", "src\FSharpWithEF.Migrations\FSharpWithEF.Migrations.csproj", "{F42C7444-7402-46D0-BB65-866E07CD74BC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5B833956-9C3C-4630-82C1-D0C57149265C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B833956-9C3C-4630-82C1-D0C57149265C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B833956-9C3C-4630-82C1-D0C57149265C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B833956-9C3C-4630-82C1-D0C57149265C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F42C7444-7402-46D0-BB65-866E07CD74BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F42C7444-7402-46D0-BB65-866E07CD74BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F42C7444-7402-46D0-BB65-866E07CD74BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F42C7444-7402-46D0-BB65-866E07CD74BC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5B833956-9C3C-4630-82C1-D0C57149265C} = {B3D20069-2D4D-444C-ACA9-E1CA234D5E87}
+		{F42C7444-7402-46D0-BB65-866E07CD74BC} = {B3D20069-2D4D-444C-ACA9-E1CA234D5E87}
+	EndGlobalSection
+EndGlobal
