@@ -10,4 +10,5 @@ let map (app: IEndpointRouteBuilder) =
         let api = app.MapGroup "api"
 
         api.MapGet("/users", (fun (db: AppDbContext) (ct: CancellationToken) -> db.Users.ToArrayAsync(ct)))
+        api.MapGet("/posts", (fun (db: AppDbContext) (ct: CancellationToken) -> db.Posts.ToArrayAsync(ct)))
     }
