@@ -1,5 +1,7 @@
 ﻿namespace FSharpWithEF.Models
 
+open System.Collections.Generic
+
 [<CLIMutable>]
 type User =
     { Id: UserId
@@ -13,4 +15,21 @@ type Blog =
     { Id: BlogId
       Title: string
       Owner: User
+      Meta: Meta }
+
+[<CLIMutable>]
+type Comment =
+    { Id: CommentId
+      Text: string
+      Author: User
+      Meta: Meta }
+
+[<CLIMutable>]
+type Post =
+    { Id: PostId
+      Title: string
+      Content: string
+      Author: User
+      BlogId: BlogId
+      Comments: HashSet<Comment>
       Meta: Meta }

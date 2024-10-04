@@ -10,6 +10,7 @@ type AppDbContext(options: DbContextOptions<AppDbContext>) =
 
     member this.Users = this.Set<User>()
     member this.Blogs = this.Set<Blog>()
+    member this.Posts = this.Set<Post>()
 
     override this.ConfigureConventions builder =
         proc {
@@ -40,9 +41,33 @@ type AppDbContext(options: DbContextOptions<AppDbContext>) =
             blog.hasKey (fun x -> x.Id)
             blog.Property(fun x -> x.Title).HasMaxLength(40)
             blog.Navigation(fun x -> x.Owner).AutoInclude()
-            // blog.hasMany(fun x -> x.Posts).WithMany()
+
             blog.complexProperty (
                 (fun x -> x.Meta),
                 (fun b -> b.Property(fun x -> x.State).HasConversion<EntityStateConverter>())
             )
+
+            let post = builder.Entity<Post>()
+            post.hasKey (fun x -> x.Id)
+            post.Property(fun x -> x.Title).HasMaxLength(50)
+            post.Property(fun x -> x.Content)
+            post.HasOne<Blog>().WithMany().hasForeignKey (fun x -> x.BlogId)
+            post.hasMany (fun x -> x.Comments)
+            post.Navigation(fun x -> x.Author).AutoInclude()
+
+            post.complexProperty (
+                (fun x -> x.Meta),
+                (fun b -> b.Property(fun x -> x.State).HasConversion<EntityStateConverter>())
+            )
+
+            let comment = builder.Entity<Comment>()
+            comment.hasKey (fun x -> x.Id)
+            comment.Property(fun x -> x.Text).HasMaxLength(120)
+            comment.Navigation(fun x -> x.Author).AutoInclude()
+
+            comment.complexProperty (
+                (fun x -> x.Meta),
+                (fun b -> b.Property(fun x -> x.State).HasConversion<EntityStateConverter>())
+            )
+
         }
