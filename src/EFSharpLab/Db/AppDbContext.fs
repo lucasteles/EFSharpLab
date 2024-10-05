@@ -1,8 +1,8 @@
-﻿namespace FSharpWithEF
+﻿namespace EFSharpLab
 
-open FSharpWithEF.Db.Config
-open FSharpWithEF.Db.Config.Converters
-open FSharpWithEF.Models
+open EFSharpLab.Db.Config
+open EFSharpLab.Db.Config.Converters
+open EFSharpLab.Models
 open Microsoft.EntityFrameworkCore
 
 type AppDbContext(options: DbContextOptions<AppDbContext>) =

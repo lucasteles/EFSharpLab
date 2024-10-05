@@ -1,7 +1,7 @@
-﻿module FSharpWithEF.Routes
+﻿module EFSharpLab.Routes
 
 open FSharp.MinimalApi
-open FSharpWithEF.Models.Settings
+open EFSharpLab.Models.Settings
 open Microsoft.AspNetCore.Builder
 open Microsoft.AspNetCore.Routing
 open Microsoft.AspNetCore.Http

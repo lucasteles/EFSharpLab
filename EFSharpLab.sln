@@ -16,9 +16,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{F0408C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B3D20069-2D4D-444C-ACA9-E1CA234D5E87}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpWithEF", "src\FSharpWithEF\FSharpWithEF.fsproj", "{5B833956-9C3C-4630-82C1-D0C57149265C}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "EFSharpLab", "src\EFSharpLab\EFSharpLab.fsproj", "{5B833956-9C3C-4630-82C1-D0C57149265C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FSharpWithEF.Migrations", "src\FSharpWithEF.Migrations\FSharpWithEF.Migrations.csproj", "{F42C7444-7402-46D0-BB65-866E07CD74BC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFSharpLab.Migrations", "src\EFSharpLab.Migrations\EFSharpLab.Migrations.csproj", "{F42C7444-7402-46D0-BB65-866E07CD74BC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

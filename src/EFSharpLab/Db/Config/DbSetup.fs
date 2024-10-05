@@ -1,4 +1,4 @@
-﻿module FSharpWithEF.Db.DbSetup
+﻿module EFSharpLab.Db.DbSetup
 
 open System.IO
 open System.Reflection
@@ -8,7 +8,7 @@ open Microsoft.Extensions.Configuration
 open Microsoft.Extensions.Hosting
 
 [<Literal>]
-let migrationsAssembly = "FSharpWithEF.Migrations"
+let migrationsAssembly = "EFSharpLab.Migrations"
 
 let applyMigrations (db: DbContext) =
     task {

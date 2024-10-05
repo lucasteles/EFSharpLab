@@ -1,8 +1,8 @@
-﻿namespace FSharpWithEF.Db.Config.Converters
+﻿namespace EFSharpLab.Db.Config.Converters
 
 open Microsoft.EntityFrameworkCore.Storage.ValueConversion
 
-open FSharpWithEF.Models
+open EFSharpLab.Models
 
 type GenderConverter() =
     inherit

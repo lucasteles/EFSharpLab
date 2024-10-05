@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace FSharpWithEF.Migrations.Migrations
+namespace EFSharpLab.Migrations.Migrations
 {
     /// <inheritdoc />
     public partial class PostsAndComments : Migration

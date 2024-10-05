@@ -1,4 +1,4 @@
-﻿namespace FSharpWithEF.Models
+﻿namespace EFSharpLab.Models
 
 open System.Collections.Generic
 

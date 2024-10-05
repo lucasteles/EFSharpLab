@@ -1,4 +1,4 @@
-namespace FSharpWithEF.Models.Settings
+namespace EFSharpLab.Models.Settings
 
 open System.Reflection
 

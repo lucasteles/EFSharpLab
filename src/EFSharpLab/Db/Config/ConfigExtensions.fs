@@ -1,5 +1,5 @@
 ﻿[<AutoOpen>]
-module FSharpWithEF.Db.Config.EFConfigExtensions
+module EFSharpLab.Db.Config.EFConfigExtensions
 
 open System
 open System.Linq.Expressions

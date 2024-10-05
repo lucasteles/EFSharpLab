@@ -20,7 +20,7 @@ let commandArgs = Environment.GetCommandLineArgs()[2..]
 let target name action = Target.create name action
 
 [<Literal>]
-let projectName = "FSharpWithEF"
+let projectName = "EFSharpLab"
 
 module Task =
     let wait (t: #Task) = t.GetAwaiter().GetResult()

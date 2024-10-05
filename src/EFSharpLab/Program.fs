@@ -2,10 +2,10 @@ open System
 open System.ComponentModel
 open System.Threading.Tasks
 open FSharp.SystemTextJson.Swagger
-open FSharpWithEF
-open FSharpWithEF.Models.Settings
+open EFSharpLab
+open EFSharpLab.Models.Settings
 open Microsoft.AspNetCore.Builder
-open FSharpWithEF.Db
+open EFSharpLab.Db
 open Microsoft.AspNetCore.Http
 open Microsoft.Extensions.DependencyInjection
 open FSharp.MinimalApi

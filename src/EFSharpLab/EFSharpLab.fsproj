@@ -22,7 +22,7 @@
   
   <!--Migrations-->
   <PropertyGroup>
-    <MigrationsProject>FSharpWithEF.Migrations</MigrationsProject>
+    <MigrationsProject>EFSharpLab.Migrations</MigrationsProject>
   </PropertyGroup>
 
   <ItemGroup>

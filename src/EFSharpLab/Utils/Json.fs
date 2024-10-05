@@ -1,4 +1,4 @@
-module FSharpWithEF.Json
+module EFSharpLab.Json
 
 open System.Text.Json.Serialization
 
