@@ -41,7 +41,7 @@ type AppDbContext(options: DbContextOptions<AppDbContext>) =
             let blog = builder.Entity<Blog>()
             blog.hasKey (fun x -> x.Id)
             blog.Property(fun x -> x.Title).HasMaxLength(40)
-            blog.Navigation(fun x -> x.Owner).AutoInclude()
+            blog.HasOne<User>().WithMany().hasForeignKey (fun x -> x.OwnerId)
 
             blog.complexProperty (
                 (fun x -> x.Meta),
@@ -53,7 +53,7 @@ type AppDbContext(options: DbContextOptions<AppDbContext>) =
             post.Property(fun x -> x.Title).HasMaxLength(50)
             post.Property(fun x -> x.Content)
             post.HasOne<Blog>().WithMany().hasForeignKey (fun x -> x.BlogId)
-            post.Navigation(fun x -> x.Author).AutoInclude()
+            post.HasOne<User>().WithMany().hasForeignKey (fun x -> x.AuthorId)
             post.Navigation(fun x -> x.Comments).AutoInclude()
 
             post.complexProperty (
@@ -65,7 +65,7 @@ type AppDbContext(options: DbContextOptions<AppDbContext>) =
             comment.ToTable "Comment"
             comment.hasKey (fun x -> x.Id)
             comment.Property(fun x -> x.Text).HasMaxLength(120)
-            comment.Navigation(fun x -> x.Author).AutoInclude()
+            comment.HasOne<User>().WithMany().hasForeignKey (fun x -> x.AuthorId)
 
             comment
                 .HasOne<Post>()

@@ -14,14 +14,14 @@ type User =
 type Blog =
     { Id: BlogId
       Title: string
-      Owner: User
+      OwnerId: UserId
       Meta: Meta }
 
 [<CLIMutable>]
 type Comment =
     { Id: CommentId
       Text: string
-      Author: User
+      AuthorId: UserId
       PostId: PostId
       Meta: Meta }
 
@@ -30,7 +30,7 @@ type Post =
     { Id: PostId
       Title: string
       Content: string
-      Author: User
+      AuthorId: UserId
       BlogId: BlogId
       Comments: IReadOnlyCollection<Comment>
       Meta: Meta }

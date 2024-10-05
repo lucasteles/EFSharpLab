@@ -24,7 +24,7 @@ let run (db: AppDbContext) =
         let blog =
             { Id = Id.next BlogId
               Title = "Super Curious"
-              Owner = user
+              OwnerId = user.Id
               Meta = Meta.now () }
 
         let post =
@@ -32,7 +32,7 @@ let run (db: AppDbContext) =
               Title = "How to create a good post"
               BlogId = blog.Id
               Content = "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-              Author = user
+              AuthorId = user.Id
               Meta = Meta.now ()
               Comments = ReadOnlyCollection.Empty }
 
