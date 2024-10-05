@@ -36,12 +36,25 @@ let run (db: AppDbContext) =
               BlogId = blog.Id
               Content = "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
               AuthorId = user.Id
-              Meta = Meta.now ()
-              Comments = ReadOnlyCollection.Empty }
+              Meta = Meta.now () }
+
+        let comments =
+            [ { Id = Id.next CommentId
+                Text = "Nice post!"
+                AuthorId = user2.Id
+                PostId = post.Id
+                Meta = Meta.now () }
+
+              { Id = Id.next CommentId
+                Text = "Thank you!"
+                AuthorId = user.Id
+                PostId = post.Id
+                Meta = Meta.now () } ]
 
         db.Users.addRange [ user; user2 ]
         db.Blogs.add blog
         db.Posts.add post
+        db.Comments.addRange comments
 
         do! db.saveChangesAsync ()
 

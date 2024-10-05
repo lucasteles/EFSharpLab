@@ -58,7 +58,6 @@ type AppDbContext(options: DbContextOptions<AppDbContext>) =
             post.Property(fun x -> x.Content)
             post.HasOne<Blog>().WithMany().hasForeignKey (fun x -> x.BlogId)
             post.HasOne<User>().WithMany().hasForeignKey (fun x -> x.AuthorId)
-            post.Navigation(fun x -> x.Comments).AutoInclude()
 
             post.complexProperty (
                 (fun x -> x.Meta),
@@ -70,11 +69,7 @@ type AppDbContext(options: DbContextOptions<AppDbContext>) =
             comment.hasKey (fun x -> x.Id)
             comment.Property(fun x -> x.Text).HasMaxLength(120)
             comment.HasOne<User>().WithMany().hasForeignKey (fun x -> x.AuthorId)
-
-            comment
-                .HasOne<Post>()
-                .WithMany(fun x -> x.Comments :> _ seq)
-                .hasForeignKey (fun x -> x.PostId)
+            comment.HasOne<Post>().WithMany().hasForeignKey (fun x -> x.PostId)
 
             comment.complexProperty (
                 (fun x -> x.Meta),
