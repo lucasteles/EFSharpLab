@@ -19,22 +19,24 @@ let map (app: IEndpointRouteBuilder) =
         api.MapGet(
             "/posts",
             (fun (db: AppDbContext) (ct: CancellationToken) ->
-                let query =
-                    db.Posts
-                        .Where(fun p -> p.Meta.State = RecordState.Active)
-                        .Join(db.Users, _.AuthorId, _.Id, (fun post author -> {| Post = post; Author = author |}))
-                        .GroupJoin(
-                            db.Comments,
-                            _.Post.Id,
-                            _.PostId,
-                            (fun r comments -> r
-                            // {| Post = r.Post
-                            //    Author = r.Author
-                            //    Comments = comments |}
-                            )
-                        )
-
-                query.ToArrayAsync(ct))
+                db.Posts
+                    .Where(fun p -> p.Meta.State = RecordState.Active)
+                    .GroupJoin(
+                        db.Comments,
+                        _.Id,
+                        _.PostId,
+                        (fun post comments ->
+                            { Id = post.Id
+                              BlogId = post.BlogId
+                              Title = post.Title
+                              Content = post.Content
+                              AuthorId = post.AuthorId
+                              CreatedAt = post.Meta.CreatedAt
+                              UpdatedAt = post.Meta.UpdatedAt
+                              Comments = comments }
+                            : DTO.Post)
+                    )
+                    .ToArrayAsync(ct))
         )
 
     }

@@ -8,7 +8,6 @@ type Post =
       Title: string
       Content: string
       AuthorId: UserId
-      AuthorName: UserId
       CreatedAt: DateTime
       UpdatedAt: DateTime
-      Comments: Comment list }
+      Comments: Comment seq }

@@ -1,6 +1,7 @@
 ﻿namespace EFSharpLab.Models
 
 open System
+open System.Collections.ObjectModel
 
 [<CLIMutable>]
 type User =
