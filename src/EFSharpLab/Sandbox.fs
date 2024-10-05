@@ -1,8 +1,6 @@
 ﻿module EFSharpLab.Sandbox
 
 open System
-open System.Collections.Generic
-open System.Collections.ObjectModel
 open EFSharpLab.Models
 
 let run (db: AppDbContext) =

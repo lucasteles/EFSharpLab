@@ -1,7 +1,6 @@
 ﻿namespace EFSharpLab.Models
 
 open System
-open System.Collections.Generic
 
 [<CLIMutable>]
 type User =

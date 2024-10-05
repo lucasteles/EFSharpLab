@@ -55,6 +55,7 @@
     <Compile Include="Models\Values.fs"/>
     <Compile Include="Models\Entities.fs"/>
     <Compile Include="Models\Settings.fs" />
+    <Compile Include="Models\DTO.fs" />
     <Compile Include="Db\Config\Converters.fs"/>
     <Compile Include="Db\Config\ConfigExtensions.fs"/>
     <Compile Include="Db\Config\QueryExtensions.fs"/>

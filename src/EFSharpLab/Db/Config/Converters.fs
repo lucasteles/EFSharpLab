@@ -17,14 +17,14 @@ type GenderConverter() =
 
 type EntityStateConverter() =
     inherit
-        ValueConverter<EntityState, char>(
+        ValueConverter<RecordState, char>(
             (fun x ->
                 match x with
-                | EntityState.Active -> '1'
-                | EntityState.Inactive -> '0'),
+                | RecordState.Active -> '1'
+                | RecordState.Inactive -> '0'),
             (fun x ->
                 match x with
-                | '1' -> EntityState.Active
-                | '0' -> EntityState.Inactive
+                | '1' -> RecordState.Active
+                | '0' -> RecordState.Inactive
                 | _ -> Unchecked.defaultof<_>)
         )

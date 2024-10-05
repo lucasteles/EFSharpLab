@@ -12,7 +12,7 @@ type Gender =
     | Female
 
 [<RequireQualifiedAccess>]
-type EntityState =
+type RecordState =
     | Active
     | Inactive
 
@@ -20,11 +20,10 @@ type EntityState =
 type Meta =
     { CreatedAt: DateTime
       UpdatedAt: DateTime
-      State: EntityState }
-
+      State: RecordState }
 
 module Meta =
     let now () =
         { CreatedAt = DateTime.UtcNow
           UpdatedAt = DateTime.UtcNow
-          State = EntityState.Active }
+          State = RecordState.Active }
