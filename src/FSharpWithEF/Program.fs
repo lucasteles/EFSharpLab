@@ -3,24 +3,36 @@ open System.ComponentModel
 open System.Threading.Tasks
 open FSharp.SystemTextJson.Swagger
 open FSharpWithEF
+open FSharpWithEF.Models.Settings
 open Microsoft.AspNetCore.Builder
 open FSharpWithEF.Db
+open Microsoft.AspNetCore.Http
 open Microsoft.Extensions.DependencyInjection
 open FSharp.MinimalApi
+open Microsoft.Extensions.Options
 
 let configure (builder: WebApplicationBuilder) =
-    let services = builder.Services
+    block {
+        let services = builder.Services
 
-    services
-        .AddSingleton(TimeProvider.System)
-        .AddSingleton(Random.Shared)
-        .AddTuples()
-        .AddEndpointsApiExplorer()
-        .AddSwaggerForSystemTextJson(Json.jsonFsharpOptions)
-        .AddDbContext<AppDbContext>(DbSetup.configureService builder "DefaultConnection")
-        .Configure(fun (options: Microsoft.AspNetCore.Mvc.JsonOptions) -> Json.configure options.JsonSerializerOptions)
-        .ConfigureHttpJsonOptions(fun options -> Json.configure options.SerializerOptions)
-    |> ignore
+        builder.Services
+            .AddOptions<MyCustomSettings>()
+            .BindConfiguration("MyCustomSettings")
+            .ValidateOnStart()
+
+        services
+            .AddSingleton(TimeProvider.System)
+            .AddSingleton(Random.Shared)
+            .AddTuples()
+            .AddEndpointsApiExplorer()
+            .AddSwaggerForSystemTextJson(Json.jsonFsharpOptions)
+            .AddDbContext<AppDbContext>(DbSetup.configureService builder "DefaultConnection")
+            .Configure(fun (options: Microsoft.AspNetCore.Mvc.JsonOptions) ->
+                Json.configure options.JsonSerializerOptions)
+            .ConfigureHttpJsonOptions(fun options -> Json.configure options.SerializerOptions)
+
+        services.AddHealthChecks().AddDbContextCheck<AppDbContext>()
+    }
 
 let start (app: WebApplication) =
     task {
@@ -36,9 +48,18 @@ let start (app: WebApplication) =
     }
 
 let configureApp (app: WebApplication) =
-    Routes.map app
+    block {
+        app.UseSwagger().UseSwaggerUI()
 
-    app.UseSwagger().UseSwaggerUI() |> ignore
+        app.MapHealthChecks("/health")
+
+        app
+            .MapGet("/version", (fun (options: IOptions<MyCustomSettings>) -> options.Value))
+            .AllowAnonymous()
+            .ExcludeFromDescription()
+
+        Routes.map app
+    }
 
 [<EntryPoint>]
 let main args =

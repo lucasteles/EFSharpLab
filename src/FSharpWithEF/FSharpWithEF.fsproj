@@ -9,6 +9,7 @@
     <PackageReference Include="FSharp.MinimalApi" Version="0.2.1" />
     <PackageReference Include="FSharp.SystemTextJson" Version="1.3.13" />
     <PackageReference Include="FSharp.SystemTextJson.Swagger" Version="0.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="8.0.8" />
     <PackageReference Include="NewId" Version="4.0.1"/>
     <PackageReference Include="FSharp.TypeConverter" Version="1.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
@@ -50,8 +51,10 @@
 
   <ItemGroup>
     <Compile Include="Utils\Utils.fs" />
+    <Compile Include="Utils\Json.fs" />
     <Compile Include="Models\Values.fs"/>
     <Compile Include="Models\Entities.fs"/>
+    <Compile Include="Models\Settings.fs" />
     <Compile Include="Db\Config\Converters.fs"/>
     <Compile Include="Db\Config\ConfigExtensions.fs"/>
     <Compile Include="Db\Config\QueryExtensions.fs"/>
