@@ -3,19 +3,20 @@ module Utils
 
 open MassTransit
 
-type ProcBuilder() =
+type BlockBuilder() =
     member _.Value = ()
     member inline this.Delay([<InlineIfLambda>] f) = f this.Value
     member this.Yield _ = this.Value
     member this.Combine(_, _) = this.Value
     member this.Zero() = this.Value
 
-let proc = ProcBuilder()
+let block = BlockBuilder()
 
 type IsClass<'entity when 'entity: not struct> = 'entity
 
 type Task = System.Threading.Tasks.Task
 type Task<'t> = System.Threading.Tasks.Task<'t>
+type CancellationToken = System.Threading.CancellationToken
 
 let (|?) a b = a |> Option.defaultValue b
 

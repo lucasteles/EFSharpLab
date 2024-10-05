@@ -14,7 +14,7 @@ type AppDbContext(options: DbContextOptions<AppDbContext>) =
     member this.Comments = this.Set<Comment>()
 
     override this.ConfigureConventions builder =
-        proc {
+        block {
             builder.UseDatetimeUtc()
             builder.UseSingleCase<BlogId>()
             builder.UseSingleCase<PostId>()
@@ -25,7 +25,7 @@ type AppDbContext(options: DbContextOptions<AppDbContext>) =
     override this.OnModelCreating builder =
         base.OnModelCreating builder
 
-        proc {
+        block {
             let user = builder.Entity<User>()
             user.ToTable "User"
             user.hasKey (fun x -> x.Id)

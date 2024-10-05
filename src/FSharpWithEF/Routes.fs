@@ -1,14 +1,16 @@
 ﻿module FSharpWithEF.Routes
 
-open System.Threading
+open FSharp.MinimalApi
 open Microsoft.AspNetCore.Builder
 open Microsoft.AspNetCore.Routing
+open Microsoft.AspNetCore.Http
 open Microsoft.EntityFrameworkCore
 
 let map (app: IEndpointRouteBuilder) =
-    proc {
-        let api = app.MapGroup "api"
+    block {
+        let api = app.MapGroup("api").WithTags("Endpoints")
 
         api.MapGet("/users", (fun (db: AppDbContext) (ct: CancellationToken) -> db.Users.ToArrayAsync(ct)))
+
         api.MapGet("/posts", (fun (db: AppDbContext) (ct: CancellationToken) -> db.Posts.ToArrayAsync(ct)))
     }

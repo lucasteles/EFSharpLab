@@ -24,7 +24,7 @@ let applyMigrations (db: DbContext) =
     }
 
 let configureService (builder: IHostApplicationBuilder) (name: string) (options: DbContextOptionsBuilder) =
-    proc {
+    block {
         let connString = builder.Configuration.GetConnectionString name
 
         options
