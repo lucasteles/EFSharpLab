@@ -39,8 +39,11 @@ type AppDbContext(options: DbContextOptions<AppDbContext>) =
             )
 
             let blog = builder.Entity<Blog>()
+            blog.ToTable "Blog"
             blog.hasKey (fun x -> x.Id)
             blog.Property(fun x -> x.Title).HasMaxLength(40)
+            blog.Property(fun x -> x.Url).HasMaxLength(500)
+            blog.Property(fun x -> x.Rating).HasPrecision(14, 2)
             blog.HasOne<User>().WithMany().hasForeignKey (fun x -> x.OwnerId)
 
             blog.complexProperty (
@@ -49,6 +52,7 @@ type AppDbContext(options: DbContextOptions<AppDbContext>) =
             )
 
             let post = builder.Entity<Post>()
+            post.ToTable "Post"
             post.hasKey (fun x -> x.Id)
             post.Property(fun x -> x.Title).HasMaxLength(50)
             post.Property(fun x -> x.Content)

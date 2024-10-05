@@ -1,5 +1,6 @@
 ﻿namespace EFSharpLab.Models
 
+open System
 open System.Collections.Generic
 
 [<CLIMutable>]
@@ -15,6 +16,8 @@ type Blog =
     { Id: BlogId
       Title: string
       OwnerId: UserId
+      Url: Uri
+      Rating: decimal
       Meta: Meta }
 
 [<CLIMutable>]

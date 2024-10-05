@@ -1,5 +1,6 @@
 ﻿module EFSharpLab.Sandbox
 
+open System
 open System.Collections.Generic
 open System.Collections.ObjectModel
 open EFSharpLab.Models
@@ -25,6 +26,8 @@ let run (db: AppDbContext) =
             { Id = Id.next BlogId
               Title = "Super Curious"
               OwnerId = user.Id
+              Rating = 0m
+              Url = Uri("https://super-curious.fakeblog")
               Meta = Meta.now () }
 
         let post =

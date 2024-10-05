@@ -13,8 +13,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EFSharpLab.Migrations.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241004195657_PostsAndComments")]
-    partial class PostsAndComments
+    [Migration("20241005174204_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,9 +34,17 @@ namespace EFSharpLab.Migrations.Migrations
                     b.Property<Guid?>("OwnerId")
                         .HasColumnType("uuid");
 
+                    b.Property<decimal>("Rating")
+                        .HasPrecision(14, 2)
+                        .HasColumnType("numeric(14,2)");
+
                     b.Property<string>("Title")
                         .HasMaxLength(40)
                         .HasColumnType("character varying(40)");
+
+                    b.Property<string>("Url")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
 
                     b.ComplexProperty<Dictionary<string, object>>("Meta", "EFSharpLab.Models.Blog.Meta#Meta", b1 =>
                         {
@@ -56,7 +64,7 @@ namespace EFSharpLab.Migrations.Migrations
 
                     b.HasIndex("OwnerId");
 
-                    b.ToTable("Blogs");
+                    b.ToTable("Blog", (string)null);
                 });
 
             modelBuilder.Entity("EFSharpLab.Models.Comment", b =>
@@ -94,7 +102,7 @@ namespace EFSharpLab.Migrations.Migrations
 
                     b.HasIndex("PostId");
 
-                    b.ToTable("Comment");
+                    b.ToTable("Comment", (string)null);
                 });
 
             modelBuilder.Entity("EFSharpLab.Models.Post", b =>
@@ -135,7 +143,7 @@ namespace EFSharpLab.Migrations.Migrations
 
                     b.HasIndex("BlogId");
 
-                    b.ToTable("Posts");
+                    b.ToTable("Post", (string)null);
                 });
 
             modelBuilder.Entity("EFSharpLab.Models.User", b =>
@@ -175,37 +183,31 @@ namespace EFSharpLab.Migrations.Migrations
 
             modelBuilder.Entity("EFSharpLab.Models.Blog", b =>
                 {
-                    b.HasOne("EFSharpLab.Models.User", "Owner")
+                    b.HasOne("EFSharpLab.Models.User", null)
                         .WithMany()
                         .HasForeignKey("OwnerId");
-
-                    b.Navigation("Owner");
                 });
 
             modelBuilder.Entity("EFSharpLab.Models.Comment", b =>
                 {
-                    b.HasOne("EFSharpLab.Models.User", "Author")
+                    b.HasOne("EFSharpLab.Models.User", null)
                         .WithMany()
                         .HasForeignKey("AuthorId");
 
                     b.HasOne("EFSharpLab.Models.Post", null)
                         .WithMany("Comments")
                         .HasForeignKey("PostId");
-
-                    b.Navigation("Author");
                 });
 
             modelBuilder.Entity("EFSharpLab.Models.Post", b =>
                 {
-                    b.HasOne("EFSharpLab.Models.User", "Author")
+                    b.HasOne("EFSharpLab.Models.User", null)
                         .WithMany()
                         .HasForeignKey("AuthorId");
 
                     b.HasOne("EFSharpLab.Models.Blog", null)
                         .WithMany()
                         .HasForeignKey("BlogId");
-
-                    b.Navigation("Author");
                 });
 
             modelBuilder.Entity("EFSharpLab.Models.Post", b =>
